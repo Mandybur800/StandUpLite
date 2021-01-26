@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import ua.com.conductor.exception.DataProcessingException;
 import ua.com.conductor.lib.Dao;
 import ua.com.conductor.model.Movie;
 import ua.com.conductor.util.HibernateUtil;
@@ -24,7 +25,7 @@ public class MovieDaoImpl implements MovieDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't insert movie entity", e);
+            throw new DataProcessingException("Can't insert movie entity");
         } finally {
             if (session != null) {
                 session.close();
@@ -38,7 +39,7 @@ public class MovieDaoImpl implements MovieDao {
             Query<Movie> getAllMoviesQuery = session.createQuery("FROM Movie", Movie.class);
             return getAllMoviesQuery.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't insert movie entity", e);
+            throw new DataProcessingException("Can't insert movie entity");
         }
     }
 }
