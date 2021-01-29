@@ -42,7 +42,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             Query<MovieSession> getAllSessionsDateQuery =
                     session.createQuery("SELECT m FROM MovieSession m "
                     + "LEFT JOIN FETCH m.cinemaHall LEFT JOIN FETCH m.movie"
-                            + " WHERE m.id = :id_movie "
+                            + " WHERE m.movie.id = :id_movie "
                             + "AND DATE_FORMAT(m.showTime, '%Y-%m-%d') = :date ",
                             MovieSession.class);
             getAllSessionsDateQuery.setParameter("id_movie", movieId);
