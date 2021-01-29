@@ -1,7 +1,7 @@
 package ua.com.conductor.dao.impl;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -37,29 +37,17 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     }
 
     @Override
-    public List<MovieSession> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<MovieSession> getAllSessionsQuery =
-                    session.createQuery("SELECT m FROM MovieSession m "
-                    + " JOIN FETCH m.cinemaHall JOIN FETCH m.movie", MovieSession.class);
-            return getAllSessionsQuery.getResultList();
-        } catch (Exception e) {
-            throw new DataProcessingException("Can't get all movie sessions ", e);
-        }
-    }
-
-    @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<MovieSession> getAllSessionsDateQuery =
                     session.createQuery("SELECT m FROM MovieSession m "
-                    + " JOIN FETCH m.cinemaHall JOIN FETCH m.movie"
-                            + " WHERE m.showTime >= :start AND m.showTime < :end ",
+                    + "LEFT JOIN FETCH m.cinemaHall LEFT JOIN FETCH m.movie"
+                            + " WHERE m.id = :id_movie "
+                            + "AND DATE_FORMAT(m.showTime, '%Y-%m-%d') = :date ",
                             MovieSession.class);
-            LocalDateTime start = date.atStartOfDay();
-            LocalDateTime end = date.plusDays(1).atStartOfDay();
-            getAllSessionsDateQuery.setParameter("start", start);
-            getAllSessionsDateQuery.setParameter("end", end);
+            getAllSessionsDateQuery.setParameter("id_movie", movieId);
+            getAllSessionsDateQuery.setParameter("date",
+                    DateTimeFormatter.ISO_LOCAL_DATE.format(date));
             return getAllSessionsDateQuery.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get all movie sessions at "

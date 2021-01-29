@@ -34,7 +34,6 @@ public class Application {
         System.out.println(cinemaHallService.getAll());
 
         MovieSession movieSessionOne = new MovieSession();
-        movieSessionOne.setMovie(movie);
         movieSessionOne.setCinemaHall(cinemaHallOne);
         movieSessionOne.setShowTime(LocalDateTime.now());
         MovieSession movieSessionTwo = new MovieSession();
@@ -50,7 +49,6 @@ public class Application {
         movieSessionService.add(movieSessionOne);
         movieSessionService.add(movieSessionTwo);
         movieSessionService.add(movieSessionThree);
-        movieSessionService.getAll().forEach(System.out::println);
         System.out.println();
         movieSessionService.findAvailableSessions(1L, LocalDate.now())
                 .forEach(System.out::println);

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import ua.com.conductor.model.MovieSession;
 
-public interface MovieSessionDao extends GenericDao<MovieSession, Long> {
+public interface MovieSessionDao {
+    MovieSession add(MovieSession session);
+
     List<MovieSession> findAvailableSessions(Long movieId, LocalDate date);
 }
