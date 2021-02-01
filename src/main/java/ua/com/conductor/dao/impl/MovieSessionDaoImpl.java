@@ -47,7 +47,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
                             MovieSession.class);
             getAllSessionsDateQuery.setParameter("id_movie", movieId);
             getAllSessionsDateQuery.setParameter("date",
-                    DateTimeFormatter.ISO_LOCAL_DATE.format(date));
+                    date.toString());
             return getAllSessionsDateQuery.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get all movie sessions at "
