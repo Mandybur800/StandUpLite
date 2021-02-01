@@ -34,7 +34,7 @@ public class Application {
         System.out.println(cinemaHallService.getAll());
 
         MovieSession movieSessionOne = new MovieSession();
-        movieSessionOne.setCinemaHall(cinemaHallOne);
+        movieSessionOne.setMovie(movie);
         movieSessionOne.setShowTime(LocalDateTime.now());
         MovieSession movieSessionTwo = new MovieSession();
         movieSessionTwo.setMovie(movie);
