@@ -50,7 +50,7 @@ public class Application {
         movieSessionService.add(movieSessionTwo);
         movieSessionService.add(movieSessionThree);
         System.out.println();
-        movieSessionService.findAvailableSessions(1L, LocalDate.now())
+        movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
     }
 }
