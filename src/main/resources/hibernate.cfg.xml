@@ -4,7 +4,7 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name = "hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name = "hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name = "hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name = "hibernate.connection.url">jdbc:mysql://localhost/cinema?serverTimezone=EET</property>
         <property name = "hibernate.connection.username">root</property>
@@ -17,6 +17,7 @@
         <mapping class="ua.com.conductor.model.Movie"/>
         <mapping class="ua.com.conductor.model.CinemaHall"/>
         <mapping class="ua.com.conductor.model.MovieSession"/>
+        <mapping class="ua.com.conductor.model.User"/>
 
     </session-factory>
 </hibernate-configuration>
