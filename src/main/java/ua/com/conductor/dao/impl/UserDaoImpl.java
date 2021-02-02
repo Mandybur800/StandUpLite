@@ -3,7 +3,6 @@ package ua.com.conductor.dao.impl;
 import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import ua.com.conductor.dao.UserDao;
 import ua.com.conductor.exception.DataProcessingException;
 import ua.com.conductor.lib.Dao;
@@ -37,10 +36,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<User> getByEmailQuery = session.createQuery("FROM User WHERE email = :email",
-                    User.class);
-            getByEmailQuery.setParameter("email", email);
-            return getByEmailQuery.uniqueResultOptional();
+            return session.createQuery("FROM User WHERE email = :email",
+                    User.class).setParameter("email", email).uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get user by email:" + email, e);
         }
