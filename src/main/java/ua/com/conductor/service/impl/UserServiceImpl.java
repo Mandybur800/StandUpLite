@@ -6,6 +6,7 @@ import ua.com.conductor.lib.Inject;
 import ua.com.conductor.lib.Service;
 import ua.com.conductor.model.User;
 import ua.com.conductor.service.UserService;
+import ua.com.conductor.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,6 +15,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User user) {
+        byte[] salt = HashUtil.getSalt();
+        String hashedPassword = HashUtil.hashPassword(user.getPassword(), salt);
+        user.setSalt(salt);
+        user.setPassword(hashedPassword);
         return userDao.add(user);
     }
 
