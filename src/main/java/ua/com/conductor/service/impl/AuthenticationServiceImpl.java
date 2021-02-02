@@ -2,7 +2,7 @@ package ua.com.conductor.service.impl;
 
 import java.util.Optional;
 import ua.com.conductor.exception.AuthenticationException;
-import ua.com.conductor.lib.Injector;
+import ua.com.conductor.lib.Inject;
 import ua.com.conductor.lib.Service;
 import ua.com.conductor.model.User;
 import ua.com.conductor.service.AuthenticationService;
@@ -11,9 +11,8 @@ import ua.com.conductor.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private static final Injector injector = Injector.getInstance("ua.com.conductor");
-    private UserService userService = (UserService)
-            injector.getInstance(UserService.class);
+    @Inject
+    private UserService userService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
