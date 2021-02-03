@@ -16,13 +16,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
-        Optional<User> optionalUser = userService.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            String hashedPassword = HashUtil.hashPassword(password, user.getSalt());
-            if (hashedPassword.equals(user.getPassword())) {
-                return user;
-            }
+        Optional<User> user = userService.findByEmail(email);
+        if (user.isPresent() && user.get().getPassword()
+                .equals(HashUtil.hashPassword(password, user.get().getSalt()))) {
+            return user.get();
         }
         throw new AuthenticationException("Incorrect login or password");
     }
