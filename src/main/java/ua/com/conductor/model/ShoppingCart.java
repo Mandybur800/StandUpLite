@@ -3,6 +3,7 @@ package ua.com.conductor.model;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,6 +18,7 @@ public class ShoppingCart {
     private List<Ticket> tickets;
     @OneToOne
     @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     public Long getId() {
