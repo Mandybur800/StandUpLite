@@ -6,6 +6,7 @@ import ua.com.conductor.lib.Inject;
 import ua.com.conductor.lib.Service;
 import ua.com.conductor.model.User;
 import ua.com.conductor.service.AuthenticationService;
+import ua.com.conductor.service.ShoppingCartService;
 import ua.com.conductor.service.UserService;
 import ua.com.conductor.util.HashUtil;
 
@@ -13,6 +14,8 @@ import ua.com.conductor.util.HashUtil;
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserService userService;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -29,6 +32,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        return userService.add(user);
+        userService.add(user);
+        shoppingCartService.registerNewShoppingCart(user);
+        return user;
     }
 }

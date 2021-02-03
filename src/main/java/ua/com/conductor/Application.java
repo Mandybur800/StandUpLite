@@ -7,10 +7,12 @@ import ua.com.conductor.lib.Injector;
 import ua.com.conductor.model.CinemaHall;
 import ua.com.conductor.model.Movie;
 import ua.com.conductor.model.MovieSession;
+import ua.com.conductor.model.User;
 import ua.com.conductor.service.AuthenticationService;
 import ua.com.conductor.service.CinemaHallService;
 import ua.com.conductor.service.MovieService;
 import ua.com.conductor.service.MovieSessionService;
+import ua.com.conductor.service.ShoppingCartService;
 
 public class Application {
     private static Injector injector = Injector.getInstance("ua.com.conductor");
@@ -57,11 +59,18 @@ public class Application {
 
         AuthenticationService authenticationService = (AuthenticationService)
                 injector.getInstance(AuthenticationService.class);
-        authenticationService.register("example@gmail.com", "TryToDoDoIt");
+        User user = authenticationService.register("example@gmail.com", "TryToDoDoIt");
         try {
             authenticationService.login("example@gmail.com", "TryToDoDoIt");
         } catch (AuthenticationException e) {
             throw new RuntimeException("Incorrect password or email!", e);
         }
+        ShoppingCartService shoppingCartService = (ShoppingCartService)
+                injector.getInstance(ShoppingCartService.class);
+        shoppingCartService.addSession(movieSessionOne, user);
+        shoppingCartService.addSession(movieSessionThree, user);
+        System.out.println(shoppingCartService.getByUser(user));
+        shoppingCartService.clear(shoppingCartService.getByUser(user));
+        System.out.println(shoppingCartService.getByUser(user));
     }
 }
