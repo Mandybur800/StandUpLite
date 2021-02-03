@@ -2,10 +2,12 @@ package ua.com.conductor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import ua.com.conductor.exception.AuthenticationException;
 import ua.com.conductor.lib.Injector;
 import ua.com.conductor.model.CinemaHall;
 import ua.com.conductor.model.Movie;
 import ua.com.conductor.model.MovieSession;
+import ua.com.conductor.service.AuthenticationService;
 import ua.com.conductor.service.CinemaHallService;
 import ua.com.conductor.service.MovieService;
 import ua.com.conductor.service.MovieSessionService;
@@ -52,5 +54,14 @@ public class Application {
         System.out.println();
         movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
+
+        AuthenticationService authenticationService = (AuthenticationService)
+                injector.getInstance(AuthenticationService.class);
+        authenticationService.register("example@gmail.com", "TryToDoDoIt");
+        try {
+            authenticationService.login("example@gmail.com", "TryToDoDoIt");
+        } catch (AuthenticationException e) {
+            throw new RuntimeException("Incorrect password or email!", e);
+        }
     }
 }
