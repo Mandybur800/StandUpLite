@@ -60,6 +60,7 @@ public class Application {
         AuthenticationService authenticationService = (AuthenticationService)
                 injector.getInstance(AuthenticationService.class);
         User user = authenticationService.register("example@gmail.com", "TryToDoDoIt");
+        User userBob = authenticationService.register("Bob@gmail.com", "BoBoBoB");
         try {
             authenticationService.login("example@gmail.com", "TryToDoDoIt");
         } catch (AuthenticationException e) {

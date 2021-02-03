@@ -40,10 +40,10 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             Query<ShoppingCart> getCartQuery =
                     session.createQuery("SELECT s FROM ShoppingCart s"
                                     + " LEFT JOIN FETCH s.tickets t"
-                            + " LEFT JOIN FETCH t.movieSession m"
-                            + " LEFT JOIN FETCH m.movie"
-                            + " LEFT JOIN FETCH m.cinemaHall"
-                            + " WHERE s.user = :user", ShoppingCart.class);
+                                    + " LEFT JOIN FETCH t.movieSession m"
+                                    + " LEFT JOIN FETCH m.movie"
+                                    + " LEFT JOIN FETCH m.cinemaHall"
+                                    + " WHERE s.user = :user", ShoppingCart.class);
             getCartQuery.setParameter("user", user);
             return getCartQuery.getSingleResult();
         } catch (Exception e) {
