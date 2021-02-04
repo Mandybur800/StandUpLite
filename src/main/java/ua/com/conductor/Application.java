@@ -75,6 +75,6 @@ public class Application {
         OrderService orderService = (OrderService)
                 injector.getInstance(OrderService.class);
         System.out.println(orderService.completeOrder(shoppingCartService.getByUser(user)));
-        System.out.println(orderService.getOrdersHistory(user));
+        orderService.getOrdersHistory(user).forEach(System.out::println);
     }
 }
