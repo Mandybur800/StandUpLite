@@ -1,7 +1,6 @@
 package ua.com.conductor.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import ua.com.conductor.dao.OrderDao;
 import ua.com.conductor.lib.Inject;
@@ -23,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     public Order completeOrder(ShoppingCart shoppingCart) {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
-        order.setTickets(new ArrayList<>(shoppingCart.getTickets()));
+        order.setTickets(shoppingCart.getTickets());
         order.setUser(shoppingCart.getUser());
         orderDao.add(order);
         shoppingCartService.clear(shoppingCart);
