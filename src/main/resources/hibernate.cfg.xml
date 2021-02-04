@@ -18,6 +18,8 @@
         <mapping class="ua.com.conductor.model.CinemaHall"/>
         <mapping class="ua.com.conductor.model.MovieSession"/>
         <mapping class="ua.com.conductor.model.User"/>
+        <mapping class="ua.com.conductor.model.Ticket"/>
+        <mapping class="ua.com.conductor.model.ShoppingCart"/>
 
     </session-factory>
 </hibernate-configuration>
