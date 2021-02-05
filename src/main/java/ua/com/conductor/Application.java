@@ -8,10 +8,11 @@ import ua.com.conductor.model.CinemaHall;
 import ua.com.conductor.model.Movie;
 import ua.com.conductor.model.MovieSession;
 import ua.com.conductor.model.User;
-import ua.com.conductor.service.AuthenticationService;
+import ua.com.conductor.security.AuthenticationService;
 import ua.com.conductor.service.CinemaHallService;
 import ua.com.conductor.service.MovieService;
 import ua.com.conductor.service.MovieSessionService;
+import ua.com.conductor.service.OrderService;
 import ua.com.conductor.service.ShoppingCartService;
 
 public class Application {
@@ -71,7 +72,9 @@ public class Application {
         shoppingCartService.addSession(movieSessionOne, user);
         shoppingCartService.addSession(movieSessionThree, user);
         System.out.println(shoppingCartService.getByUser(user));
-        shoppingCartService.clear(shoppingCartService.getByUser(user));
-        System.out.println(shoppingCartService.getByUser(user));
+        OrderService orderService = (OrderService)
+                injector.getInstance(OrderService.class);
+        System.out.println(orderService.completeOrder(shoppingCartService.getByUser(user)));
+        orderService.getOrdersHistory(user).forEach(System.out::println);
     }
 }

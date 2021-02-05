@@ -1,5 +1,6 @@
 package ua.com.conductor.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import ua.com.conductor.dao.ShoppingCartDao;
 import ua.com.conductor.dao.TicketDao;
@@ -44,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
-        shoppingCart.getTickets().clear();
+        shoppingCart.setTickets(new ArrayList<>());
         shoppingCartDao.update(shoppingCart);
     }
 }

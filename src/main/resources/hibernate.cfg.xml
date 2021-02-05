@@ -20,6 +20,7 @@
         <mapping class="ua.com.conductor.model.User"/>
         <mapping class="ua.com.conductor.model.Ticket"/>
         <mapping class="ua.com.conductor.model.ShoppingCart"/>
+        <mapping class="ua.com.conductor.model.Order"/>
 
     </session-factory>
 </hibernate-configuration>

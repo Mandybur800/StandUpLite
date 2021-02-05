@@ -1,4 +1,4 @@
-package ua.com.conductor.service;
+package ua.com.conductor.security;
 
 import ua.com.conductor.exception.AuthenticationException;
 import ua.com.conductor.model.User;
