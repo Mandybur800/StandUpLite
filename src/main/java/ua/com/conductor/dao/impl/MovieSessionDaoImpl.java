@@ -3,22 +3,30 @@ package ua.com.conductor.dao.impl;
 import java.time.LocalDate;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.com.conductor.dao.MovieSessionDao;
 import ua.com.conductor.exception.DataProcessingException;
-import ua.com.conductor.lib.Dao;
 import ua.com.conductor.model.MovieSession;
-import ua.com.conductor.util.HibernateUtil;
 
-@Dao
+@Repository
 public class MovieSessionDaoImpl implements MovieSessionDao {
+    private final SessionFactory sessionFactory;
+
+    @Autowired
+    public MovieSessionDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public MovieSession add(MovieSession movieSession) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(movieSession);
             transaction.commit();
@@ -37,7 +45,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<MovieSession> getAllSessionsDateQuery =
                     session.createQuery("SELECT m FROM MovieSession m "
                     + "LEFT JOIN FETCH m.cinemaHall LEFT JOIN FETCH m.movie"

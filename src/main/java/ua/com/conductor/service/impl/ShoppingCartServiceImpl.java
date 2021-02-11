@@ -2,10 +2,10 @@ package ua.com.conductor.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.conductor.dao.ShoppingCartDao;
 import ua.com.conductor.dao.TicketDao;
-import ua.com.conductor.lib.Inject;
-import ua.com.conductor.lib.Service;
 import ua.com.conductor.model.MovieSession;
 import ua.com.conductor.model.ShoppingCart;
 import ua.com.conductor.model.Ticket;
@@ -14,10 +14,14 @@ import ua.com.conductor.service.ShoppingCartService;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    @Inject
-    private ShoppingCartDao shoppingCartDao;
-    @Inject
-    private TicketDao ticketDao;
+    private final ShoppingCartDao shoppingCartDao;
+    private final TicketDao ticketDao;
+
+    @Autowired
+    public ShoppingCartServiceImpl(ShoppingCartDao shoppingCartDao, TicketDao ticketDao) {
+        this.shoppingCartDao = shoppingCartDao;
+        this.ticketDao = ticketDao;
+    }
 
     @Override
     public void addSession(MovieSession movieSession, User user) {

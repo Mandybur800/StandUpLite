@@ -1,9 +1,9 @@
 package ua.com.conductor.security;
 
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.conductor.exception.AuthenticationException;
-import ua.com.conductor.lib.Inject;
-import ua.com.conductor.lib.Service;
 import ua.com.conductor.model.User;
 import ua.com.conductor.service.ShoppingCartService;
 import ua.com.conductor.service.UserService;
@@ -11,10 +11,15 @@ import ua.com.conductor.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Inject
-    private UserService userService;
-    @Inject
-    private ShoppingCartService shoppingCartService;
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+
+    @Autowired
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
