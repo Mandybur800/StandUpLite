@@ -2,22 +2,30 @@ package ua.com.conductor.dao.impl;
 
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.com.conductor.dao.MovieDao;
 import ua.com.conductor.exception.DataProcessingException;
-import ua.com.conductor.lib.Dao;
 import ua.com.conductor.model.Movie;
-import ua.com.conductor.util.HibernateUtil;
 
-@Dao
+@Repository
 public class MovieDaoImpl implements MovieDao {
+    private final SessionFactory sessionFactory;
+
+    @Autowired
+    public MovieDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public Movie add(Movie movie) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(movie);
             transaction.commit();
@@ -36,7 +44,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<Movie> getAllMoviesQuery = session.createQuery("FROM Movie", Movie.class);
             return getAllMoviesQuery.getResultList();
         } catch (Exception e) {
