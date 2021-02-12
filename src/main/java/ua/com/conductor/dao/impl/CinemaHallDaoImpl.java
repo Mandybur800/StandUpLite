@@ -1,6 +1,7 @@
 package ua.com.conductor.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -50,6 +51,15 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             return getAllHallsQuery.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get all cinema halls ", e);
+        }
+    }
+
+    @Override
+    public Optional<CinemaHall> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(CinemaHall.class, id));
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't get cinema hall by id: " + id, e);
         }
     }
 }
