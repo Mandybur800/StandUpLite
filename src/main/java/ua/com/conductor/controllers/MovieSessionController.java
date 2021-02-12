@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.com.conductor.model.MovieSession;
 import ua.com.conductor.model.dto.MovieSessionRequestDto;
 import ua.com.conductor.model.dto.MovieSessionResponseDto;
-import ua.com.conductor.model.dto.MovieSessionUpdateDto;
 import ua.com.conductor.service.MovieSessionService;
 import ua.com.conductor.service.dtomappers.MovieSessionMapper;
 
@@ -50,13 +48,12 @@ public class MovieSessionController {
     }
 
     @PutMapping
-    public void updateMovieSession(@RequestBody MovieSessionUpdateDto dto) {
-        MovieSession movieSession = mapper.toUpdateEntity(dto);
-        movieSessionService.update(movieSession);
+    public void updateMovieSession(@RequestBody MovieSessionRequestDto dto) {
+        movieSessionService.update(mapper.toEntity(dto));
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteMovieSession(@PathVariable Long id) {
-        movieSessionService.delete(movieSessionService.get(id));
+    @DeleteMapping
+    public void deleteMovieSession(@RequestBody MovieSessionRequestDto dto) {
+        movieSessionService.delete(mapper.toEntity(dto));
     }
 }

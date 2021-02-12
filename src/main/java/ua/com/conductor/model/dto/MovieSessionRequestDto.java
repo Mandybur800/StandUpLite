@@ -1,9 +1,18 @@
 package ua.com.conductor.model.dto;
 
 public class MovieSessionRequestDto {
+    private Long id;
     private String showTime;
     private Long movieId;
     private Long cinemaHallId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getShowTime() {
         return showTime;

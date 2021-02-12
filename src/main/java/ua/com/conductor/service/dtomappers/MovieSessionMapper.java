@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import ua.com.conductor.model.MovieSession;
 import ua.com.conductor.model.dto.MovieSessionRequestDto;
 import ua.com.conductor.model.dto.MovieSessionResponseDto;
-import ua.com.conductor.model.dto.MovieSessionUpdateDto;
 import ua.com.conductor.service.CinemaHallService;
 import ua.com.conductor.service.MovieService;
 
@@ -24,22 +23,12 @@ public class MovieSessionMapper {
 
     public MovieSession toEntity(MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = new MovieSession();
+        movieSession.setId(movieSessionRequestDto.getId());
         movieSession.setMovie(movieService.get(movieSessionRequestDto.getMovieId()));
         LocalDateTime dateTime = LocalDateTime.parse(movieSessionRequestDto.getShowTime(),
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         movieSession.setShowTime(dateTime);
         movieSession.setCinemaHall(cinemaHallService.get(movieSessionRequestDto.getCinemaHallId()));
-        return movieSession;
-    }
-
-    public MovieSession toUpdateEntity(MovieSessionUpdateDto dto) {
-        MovieSession movieSession = new MovieSession();
-        movieSession.setId(dto.getId());
-        movieSession.setMovie(movieService.get(dto.getMovieId()));
-        LocalDateTime dateTime = LocalDateTime.parse(dto.getShowTime(),
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        movieSession.setShowTime(dateTime);
-        movieSession.setCinemaHall(cinemaHallService.get(dto.getCinemaHallId()));
         return movieSession;
     }
 
