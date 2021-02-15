@@ -23,7 +23,6 @@ public class MovieSessionMapper {
 
     public MovieSession toEntity(MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = new MovieSession();
-        movieSession.setId(movieSessionRequestDto.getId());
         movieSession.setMovie(movieService.get(movieSessionRequestDto.getMovieId()));
         LocalDateTime dateTime = LocalDateTime.parse(movieSessionRequestDto.getShowTime(),
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME);
