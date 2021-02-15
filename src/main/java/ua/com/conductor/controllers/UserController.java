@@ -11,7 +11,7 @@ import ua.com.conductor.service.UserService;
 import ua.com.conductor.service.dtomappers.UserMapper;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
