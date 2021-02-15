@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.com.conductor.model.User;
 import ua.com.conductor.model.dto.UserRequestDto;
 import ua.com.conductor.security.AuthenticationService;
 import ua.com.conductor.service.dtomappers.UserMapper;
@@ -25,7 +24,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public void registration(@RequestBody UserRequestDto dto) {
-        User user = mapper.toEntity(dto);
         authenticationService.register(dto.getEmail(), dto.getEmail());
     }
 }
