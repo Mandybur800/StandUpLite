@@ -110,7 +110,11 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     @Override
     public Optional<MovieSession> get(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.ofNullable(session.get(MovieSession.class, id));
+            return session.createQuery("from MovieSession m "
+                    + "left join fetch m.cinemaHall "
+                    + "left join fetch m.movie "
+                    + "where m.id = :id", MovieSession.class)
+                    .setParameter("id", id).uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get movie session by id: " + id, e);
         }
