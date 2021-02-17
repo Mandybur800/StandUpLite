@@ -1,9 +1,9 @@
 package ua.com.conductor.model.dto;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
 
 public class CinemaHallRequestDto {
-    @NotNull
+    @Min(10)
     private int capacity;
     private String description;
 
