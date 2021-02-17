@@ -1,6 +1,8 @@
 package ua.com.conductor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,13 +34,21 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/movie-sessions")
-    public void addMovieSession(@RequestParam Long userId, @RequestParam Long movieSessionId) {
+    public void addMovieSession(Authentication authentication, @RequestParam Long movieSessionId) {
+        UserDetails details = (UserDetails) authentication.getPrincipal();
+        String email = details.getUsername();
         shoppingCartService.addSession(movieSessionService.get(movieSessionId),
-                userService.get(userId));
+                userService.findByEmail(email)
+                        .orElseThrow(()
+                                -> new RuntimeException("Incorrect email or password")));
     }
 
     @GetMapping("/by-user")
-    public ShoppingCartResponseDto getByUser(@RequestParam Long userId) {
-        return mapper.toDto(shoppingCartService.getByUser(userService.get(userId)));
+    public ShoppingCartResponseDto getByUser(Authentication authentication) {
+        UserDetails details = (UserDetails) authentication.getPrincipal();
+        String email = details.getUsername();
+        return mapper.toDto(shoppingCartService.getByUser(userService.findByEmail(email)
+                .orElseThrow(()
+                        -> new RuntimeException("Incorrect email or password"))));
     }
 }
