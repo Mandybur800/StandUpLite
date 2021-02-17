@@ -40,18 +40,14 @@ public class OrderController {
         String email = details.getUsername();
         return mapper.toDto(orderService
                 .completeOrder(shoppingCartService
-                        .getByUser(userService.findByEmail(email)
-                                .orElseThrow(()
-                                        -> new RuntimeException("Incorrect email or password")))));
+                        .getByUser(userService.findByEmail(email).get())));
     }
 
     @GetMapping
     public List<OrderResponseDto> getOrdersForUser(Authentication authentication) {
         UserDetails details = (UserDetails) authentication.getPrincipal();
         String email = details.getUsername();
-        return orderService.getOrdersHistory(userService.findByEmail(email)
-                .orElseThrow(()
-                        -> new RuntimeException("Incorrect email or password")))
+        return orderService.getOrdersHistory(userService.findByEmail(email).get())
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

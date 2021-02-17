@@ -38,17 +38,13 @@ public class ShoppingCartController {
         UserDetails details = (UserDetails) authentication.getPrincipal();
         String email = details.getUsername();
         shoppingCartService.addSession(movieSessionService.get(movieSessionId),
-                userService.findByEmail(email)
-                        .orElseThrow(()
-                                -> new RuntimeException("Incorrect email or password")));
+                userService.findByEmail(email).get());
     }
 
     @GetMapping("/by-user")
     public ShoppingCartResponseDto getByUser(Authentication authentication) {
         UserDetails details = (UserDetails) authentication.getPrincipal();
         String email = details.getUsername();
-        return mapper.toDto(shoppingCartService.getByUser(userService.findByEmail(email)
-                .orElseThrow(()
-                        -> new RuntimeException("Incorrect email or password"))));
+        return mapper.toDto(shoppingCartService.getByUser(userService.findByEmail(email).get()));
     }
 }
