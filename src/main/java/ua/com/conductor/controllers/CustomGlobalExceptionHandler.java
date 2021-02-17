@@ -15,7 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class CustomGlobalExceptionHandler  extends ResponseEntityExceptionHandler {
+public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
@@ -24,7 +24,7 @@ public class CustomGlobalExceptionHandler  extends ResponseEntityExceptionHandle
         body.put("timestamp", new Date());
         body.put("status", status.value());
         List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
+                .getAllErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());

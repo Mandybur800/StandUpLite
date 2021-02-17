@@ -15,6 +15,8 @@ import ua.com.conductor.util.EmailValidator;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EmailValidation {
     String message() default "Incorrect email";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

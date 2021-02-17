@@ -1,5 +1,6 @@
 package ua.com.conductor.model.dto;
 
+import javax.validation.constraints.Size;
 import ua.com.conductor.anotations.EmailValidation;
 import ua.com.conductor.anotations.ValidPassword;
 
@@ -13,6 +14,7 @@ import ua.com.conductor.anotations.ValidPassword;
 public class UserRequestDto {
     @EmailValidation
     private String email;
+    @Size(min = 8)
     private String password;
     private String repeatPassword;
 

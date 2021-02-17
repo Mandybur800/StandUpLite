@@ -5,11 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 import ua.com.conductor.anotations.EmailValidation;
 
 public class EmailValidator implements ConstraintValidator<EmailValidation, String> {
-    private final String EMAIL_REGEX = "\\w+@[a-z]+\\.[a-z]+";
-    @Override
-    public void initialize(EmailValidation constraintAnnotation) {
-
-    }
+    private static final String EMAIL_REGEX = "\\w+@[a-z]+\\.[a-z]+";
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {

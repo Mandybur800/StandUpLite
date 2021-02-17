@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import ua.com.conductor.util.PasswordValidator;
 
 @Constraint(validatedBy = PasswordValidator.class)
@@ -16,6 +17,10 @@ public @interface ValidPassword {
     String field();
 
     String fieldMatch();
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
     @Target({ ElementType.TYPE })
     @Retention(RetentionPolicy.RUNTIME)
