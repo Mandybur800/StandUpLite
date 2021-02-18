@@ -15,12 +15,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(getEncoder())
-                .withUser("bobbob@bob.bo").password(getEncoder().encode("pass1word")).roles("USER");
+                .withUser("bobbob@bob.bo")
+                .password(getEncoder().encode("pass1word"))
+                .roles("USER");
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin().permitAll()
-                .and().httpBasic().and().csrf().disable();
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().permitAll()
+                .and().httpBasic()
+                .and()
+                .csrf().disable();
     }
 
     @Bean
