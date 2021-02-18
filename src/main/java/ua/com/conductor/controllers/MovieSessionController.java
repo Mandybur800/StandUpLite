@@ -3,6 +3,7 @@ package ua.com.conductor.controllers;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,13 +44,14 @@ public class MovieSessionController {
     }
 
     @PostMapping
-    public void createMovieSession(@RequestBody MovieSessionRequestDto requestDto) {
+    public void createMovieSession(@RequestBody @Valid MovieSessionRequestDto requestDto) {
         MovieSession movieSession = mapper.toEntity(requestDto);
         movieSessionService.add(movieSession);
     }
 
     @PutMapping("/{id}")
-    public void updateMovieSession(@PathVariable Long id, @RequestBody MovieSessionRequestDto dto) {
+    public void updateMovieSession(@PathVariable Long id,
+                                   @RequestBody @Valid MovieSessionRequestDto dto) {
         MovieSession movieSession = mapper.toEntity(dto);
         movieSession.setId(id);
         movieSessionService.update(movieSession);

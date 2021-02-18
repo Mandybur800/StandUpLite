@@ -1,5 +1,6 @@
 package ua.com.conductor.controllers;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public void registration(@RequestBody UserRequestDto dto) {
+    public void registration(@RequestBody @Valid UserRequestDto dto) {
         authenticationService.register(dto.getEmail(), dto.getPassword());
     }
 }

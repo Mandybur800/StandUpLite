@@ -3,10 +3,11 @@ package ua.com.conductor.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.com.conductor.model.dto.OrderResponseDto;
 import ua.com.conductor.service.OrderService;
@@ -34,14 +35,19 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public OrderResponseDto completeOrder(@RequestParam Long userId) {
+    public OrderResponseDto completeOrder(Authentication authentication) {
+        UserDetails details = (UserDetails) authentication.getPrincipal();
+        String email = details.getUsername();
         return mapper.toDto(orderService
-                .completeOrder(shoppingCartService.getByUser(userService.get(userId))));
+                .completeOrder(shoppingCartService
+                        .getByUser(userService.findByEmail(email).get())));
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrdersForUser(@RequestParam Long userId) {
-        return orderService.getOrdersHistory(userService.get(userId))
+    public List<OrderResponseDto> getOrdersForUser(Authentication authentication) {
+        UserDetails details = (UserDetails) authentication.getPrincipal();
+        String email = details.getUsername();
+        return orderService.getOrdersHistory(userService.findByEmail(email).get())
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

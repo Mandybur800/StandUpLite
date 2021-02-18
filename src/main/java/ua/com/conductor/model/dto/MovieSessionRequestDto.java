@@ -1,8 +1,13 @@
 package ua.com.conductor.model.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class MovieSessionRequestDto {
+    @NotNull
     private String showTime;
+    @NotNull
     private Long movieId;
+    @NotNull
     private Long cinemaHallId;
 
     public String getShowTime() {

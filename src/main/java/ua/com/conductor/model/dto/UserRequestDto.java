@@ -1,8 +1,22 @@
 package ua.com.conductor.model.dto;
 
+import javax.validation.constraints.Size;
+import ua.com.conductor.anotations.EmailValidation;
+import ua.com.conductor.anotations.ValidPassword;
+
+@ValidPassword.List({
+        @ValidPassword(
+                field = "password",
+                fieldMatch = "repeatPassword",
+                message = "Passwords do not match!"
+        )
+})
 public class UserRequestDto {
+    @EmailValidation
     private String email;
+    @Size(min = 8)
     private String password;
+    private String repeatPassword;
 
     public String getEmail() {
         return email;
@@ -18,5 +32,13 @@ public class UserRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }
