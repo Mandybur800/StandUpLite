@@ -1,5 +1,6 @@
 package ua.com.conductor.controllers;
 
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class InjectData {
         adminRole.setRoleName(Roles.ADMIN);
         roleService.add(adminRole);
         User admin = new User();
-        admin.setRole(adminRole);
+        admin.setRoles(List.of(adminRole));
         admin.setEmail("bob@bob.bo");
         admin.setPassword("pass1word");
         userService.add(admin);

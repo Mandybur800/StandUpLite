@@ -24,7 +24,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserBuilder builder = User.builder();
         builder.username(user.getEmail());
         builder.password(user.getPassword());
-        builder.authorities(user.getRole().getRoleName().name());
+        builder.authorities(user.getRoles()
+                .stream()
+                .map(n -> n.getRoleName().name())
+                .toArray(String[]::new));
         return builder.build();
     }
 }
