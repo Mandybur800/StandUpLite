@@ -1,12 +1,21 @@
 package ua.com.conductor.service.dtomappers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.com.conductor.model.User;
 import ua.com.conductor.model.dto.UserRequestDto;
 import ua.com.conductor.model.dto.UserResponseDto;
+import ua.com.conductor.service.RoleService;
 
 @Component
 public class UserMapper {
+    private final RoleService roleService;
+
+    @Autowired
+    public UserMapper(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     public User toEntity(UserRequestDto dto) {
         User user = new User();
         user.setEmail(dto.getEmail());
