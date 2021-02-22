@@ -19,8 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        ua.com.conductor.model.User user = userService.findByEmail(s).get();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        ua.com.conductor.model.User user = userService.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Can't get User by email:"
+                        + username));
         UserBuilder builder = User.builder();
         builder.username(user.getEmail());
         builder.password(user.getPassword());
