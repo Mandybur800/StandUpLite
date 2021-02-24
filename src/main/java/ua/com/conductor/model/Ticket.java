@@ -17,7 +17,7 @@ public class Ticket {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_session_id")
-    private MovieSession movieSession;
+    private Session session;
     @ManyToOne
     private User user;
 
@@ -29,12 +29,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public MovieSession getMovieSession() {
-        return movieSession;
+    public Session getMovieSession() {
+        return session;
     }
 
-    public void setMovieSession(MovieSession movieSession) {
-        this.movieSession = movieSession;
+    public void setMovieSession(Session session) {
+        this.session = session;
     }
 
     public User getUser() {
@@ -49,7 +49,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{"
                 + "id=" + id
-                + ", movieSession=" + movieSession
+                + ", movieSession=" + session
                 + ", user=" + user
                 + '}';
     }

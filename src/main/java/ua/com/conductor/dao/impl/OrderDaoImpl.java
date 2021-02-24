@@ -49,9 +49,9 @@ public class OrderDaoImpl implements OrderDao {
             Query<Order> getCartQuery =
                     session.createQuery("SELECT DISTINCT o FROM Order o"
                             + " LEFT JOIN FETCH o.tickets t"
-                            + " LEFT JOIN FETCH t.movieSession m"
-                            + " LEFT JOIN FETCH m.movie"
-                            + " LEFT JOIN FETCH m.cinemaHall"
+                            + " LEFT JOIN FETCH t.session s"
+                            + " LEFT JOIN FETCH s.event"
+                            + " LEFT JOIN FETCH s.location"
                             + " WHERE o.user = :user", Order.class);
             getCartQuery.setParameter("user", user);
             return getCartQuery.getResultList();

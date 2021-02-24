@@ -2,7 +2,7 @@ package ua.com.conductor.model.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class MovieRequestDto {
+public class EventRequestDto {
     @NotNull
     private String title;
     private String description;
