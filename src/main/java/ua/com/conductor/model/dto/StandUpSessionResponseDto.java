@@ -1,6 +1,6 @@
 package ua.com.conductor.model.dto;
 
-public class SessionResponseDto {
+public class StandUpSessionResponseDto {
     private Long sessionId;
     private String showTime;
     private Long eventId;

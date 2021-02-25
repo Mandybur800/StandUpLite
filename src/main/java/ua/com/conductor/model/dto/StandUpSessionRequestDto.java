@@ -2,7 +2,7 @@ package ua.com.conductor.model.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class SessionRequestDto {
+public class StandUpSessionRequestDto {
     @NotNull
     private String showTime;
     @NotNull

@@ -15,52 +15,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ua.com.conductor.model.Session;
-import ua.com.conductor.model.dto.SessionRequestDto;
-import ua.com.conductor.model.dto.SessionResponseDto;
-import ua.com.conductor.service.SessionService;
-import ua.com.conductor.service.dtomappers.SessionMapper;
+import ua.com.conductor.model.StandUpSession;
+import ua.com.conductor.model.dto.StandUpSessionRequestDto;
+import ua.com.conductor.model.dto.StandUpSessionResponseDto;
+import ua.com.conductor.service.StandUpSessionService;
+import ua.com.conductor.service.dtomappers.StandUpSessionMapper;
 
 @RestController
 @RequestMapping("/sessions")
-public class SessionController {
-    private final SessionService sessionService;
-    private final SessionMapper mapper;
+public class StandUpSessionController {
+    private final StandUpSessionService standUpSessionService;
+    private final StandUpSessionMapper mapper;
 
     @Autowired
-    public SessionController(SessionService sessionService,
-                             SessionMapper mapper) {
-        this.sessionService = sessionService;
+    public StandUpSessionController(StandUpSessionService standUpSessionService,
+                                    StandUpSessionMapper mapper) {
+        this.standUpSessionService = standUpSessionService;
         this.mapper = mapper;
     }
 
     @GetMapping("/available")
-    public List<SessionResponseDto> getSessionsByDate(@RequestParam Long eventId,
-                                                      @RequestParam
+    public List<StandUpSessionResponseDto> getSessionsByDate(@RequestParam Long eventId,
+                                                             @RequestParam
                                                       @DateTimeFormat(pattern = "dd.MM.yyyy")
                                                               LocalDate date) {
-        return sessionService.findAvailableSessions(eventId, date)
+        return standUpSessionService.findAvailableSessions(eventId, date)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
-    public void createMovieSession(@RequestBody @Valid SessionRequestDto requestDto) {
-        Session session = mapper.toEntity(requestDto);
-        sessionService.add(session);
+    public void createMovieSession(@RequestBody @Valid StandUpSessionRequestDto requestDto) {
+        StandUpSession standUpSession = mapper.toEntity(requestDto);
+        standUpSessionService.add(standUpSession);
     }
 
     @PutMapping("/{id}")
     public void updateMovieSession(@PathVariable Long id,
-                                   @RequestBody @Valid SessionRequestDto dto) {
-        Session session = mapper.toEntity(dto);
-        session.setId(id);
-        sessionService.update(session);
+                                   @RequestBody @Valid StandUpSessionRequestDto dto) {
+        StandUpSession standUpSession = mapper.toEntity(dto);
+        standUpSession.setId(id);
+        standUpSessionService.update(standUpSession);
     }
 
     @DeleteMapping("/{id}")
     public void deleteMovieSession(@PathVariable Long id) {
-        sessionService.delete(id);
+        standUpSessionService.delete(id);
     }
 }

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sessions")
-public class Session {
+public class StandUpSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
