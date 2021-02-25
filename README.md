@@ -1,7 +1,7 @@
-#Stand-up ticket shop
+# Stand-up ticket shop
 Implementation of an online store with default functionality written in Java.
 
-##Structure
+## Structure
 
 ###### The project has an N-tier structure and consists of the layers:
 * Database layer;
