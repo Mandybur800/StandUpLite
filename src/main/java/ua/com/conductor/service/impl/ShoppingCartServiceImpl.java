@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.conductor.dao.ShoppingCartDao;
 import ua.com.conductor.dao.TicketDao;
-import ua.com.conductor.model.MovieSession;
 import ua.com.conductor.model.ShoppingCart;
+import ua.com.conductor.model.StandUpSession;
 import ua.com.conductor.model.Ticket;
 import ua.com.conductor.model.User;
 import ua.com.conductor.service.ShoppingCartService;
@@ -24,10 +24,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void addSession(MovieSession movieSession, User user) {
+    public void addSession(StandUpSession standUpSession, User user) {
         Ticket ticket = new Ticket();
         ticket.setUser(user);
-        ticket.setMovieSession(movieSession);
+        ticket.setMovieSession(standUpSession);
         ShoppingCart shoppingCartByUser = shoppingCartDao.getByUser(user);
         List<Ticket> tickets = shoppingCartByUser.getTickets();
         ticketDao.add(ticket);

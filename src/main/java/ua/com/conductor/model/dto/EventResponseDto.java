@@ -1,8 +1,8 @@
 package ua.com.conductor.model.dto;
 
-public class CinemaHallResponseDto {
+public class EventResponseDto {
     private Long id;
-    private int capacity;
+    private String title;
     private String description;
 
     public Long getId() {
@@ -13,12 +13,12 @@ public class CinemaHallResponseDto {
         this.id = id;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

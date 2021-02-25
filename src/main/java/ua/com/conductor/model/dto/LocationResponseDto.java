@@ -1,9 +1,10 @@
 package ua.com.conductor.model.dto;
 
-public class MovieResponseDto {
+public class LocationResponseDto {
     private Long id;
-    private String title;
+    private int capacity;
     private String description;
+    private String address;
 
     public Long getId() {
         return id;
@@ -13,12 +14,12 @@ public class MovieResponseDto {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public String getDescription() {
@@ -27,5 +28,13 @@ public class MovieResponseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

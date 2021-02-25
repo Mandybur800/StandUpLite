@@ -8,34 +8,34 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.com.conductor.dao.CinemaHallDao;
+import ua.com.conductor.dao.EventDao;
 import ua.com.conductor.exception.DataProcessingException;
-import ua.com.conductor.model.CinemaHall;
+import ua.com.conductor.model.Event;
 
 @Repository
-public class CinemaHallDaoImpl implements CinemaHallDao {
+public class EventDaoImpl implements EventDao {
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public CinemaHallDaoImpl(SessionFactory sessionFactory) {
+    public EventDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public CinemaHall add(CinemaHall cinemaHall) {
+    public Event add(Event event) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.save(cinemaHall);
+            session.save(event);
             transaction.commit();
-            return cinemaHall;
+            return event;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert cinema hall " + cinemaHall, e);
+            throw new DataProcessingException("Can't insert event " + event, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -44,22 +44,21 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
     }
 
     @Override
-    public List<CinemaHall> getAll() {
+    public List<Event> getAll() {
         try (Session session = sessionFactory.openSession()) {
-            Query<CinemaHall> getAllHallsQuery = session.createQuery("FROM CinemaHall",
-                    CinemaHall.class);
-            return getAllHallsQuery.getResultList();
+            Query<Event> getAllMoviesQuery = session.createQuery("FROM Event", Event.class);
+            return getAllMoviesQuery.getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't get all cinema halls ", e);
+            throw new DataProcessingException("Can't get all events", e);
         }
     }
 
     @Override
-    public Optional<CinemaHall> get(Long id) {
+    public Optional<Event> get(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.ofNullable(session.get(CinemaHall.class, id));
+            return Optional.ofNullable(session.get(Event.class, id));
         } catch (Exception e) {
-            throw new DataProcessingException("Can't get cinema hall by id: " + id, e);
+            throw new DataProcessingException("Can't get event by id: " + id, e);
         }
     }
 }

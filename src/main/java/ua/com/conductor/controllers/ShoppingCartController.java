@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.com.conductor.model.dto.ShoppingCartResponseDto;
-import ua.com.conductor.service.MovieSessionService;
 import ua.com.conductor.service.ShoppingCartService;
+import ua.com.conductor.service.StandUpSessionService;
 import ua.com.conductor.service.UserService;
 import ua.com.conductor.service.dtomappers.ShoppingCartMapper;
 
@@ -18,26 +18,26 @@ import ua.com.conductor.service.dtomappers.ShoppingCartMapper;
 @RequestMapping("/shopping-carts")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
-    private final MovieSessionService movieSessionService;
+    private final StandUpSessionService standUpSessionService;
     private final UserService userService;
     private final ShoppingCartMapper mapper;
 
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService,
-                                  MovieSessionService movieSessionService,
+                                  StandUpSessionService standUpSessionService,
                                   UserService userService,
                                   ShoppingCartMapper mapper) {
         this.shoppingCartService = shoppingCartService;
-        this.movieSessionService = movieSessionService;
+        this.standUpSessionService = standUpSessionService;
         this.userService = userService;
         this.mapper = mapper;
     }
 
-    @PostMapping("/movie-sessions")
-    public void addMovieSession(Authentication authentication, @RequestParam Long movieSessionId) {
+    @PostMapping("/sessions")
+    public void addMovieSession(Authentication authentication, @RequestParam Long sessionId) {
         UserDetails details = (UserDetails) authentication.getPrincipal();
         String email = details.getUsername();
-        shoppingCartService.addSession(movieSessionService.get(movieSessionId),
+        shoppingCartService.addSession(standUpSessionService.get(sessionId),
                 userService.findByEmail(email).get());
     }
 
