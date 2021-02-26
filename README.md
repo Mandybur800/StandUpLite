@@ -1,29 +1,24 @@
 # Stand-up ticket shop
-Implementation of an online store with default functionality written in Java.
+Implementation of an online store of stand-up tickets with default functionality written in Java.
 
 ## Structure
 
-###### The project has an N-tier structure and consists of the layers:
-* Database layer;
-* DAO layer (JDBC API);
-* Service layer(contains the business logic);
-* Layer with controllers.
+The project has an N-tier structure and consists layers like a DAO, Service layer and controllers.
 
-###### Clients can perform the following actions:
+##### Project able next actions:
+* USER
+  * register on the store's website;
+  * log in user's acount;
+  * look through stand-up events sold at the store;
+  * add tickets to their cart;
+  * delete tickets from the user's cart;
+  * complete orders.
 
-* register on the store's website;
-* log in;
-* look through events sold at the store;
-* add tickets to their cart;
-* delete tickets from the cart;
-* place orders.
-
-###### Admins in their turn can:
-
-* view information about registered users;
-* view all orders placed at the store;
-* add new locations, events and sessions;
-* modify exist sessions.
+* ADMIN
+  * view information about registered users;
+  * view all orders placed at the store;
+  * add new locations, events and sessions;
+  * modify exist sessions.
 
 ## Technologies 
 
