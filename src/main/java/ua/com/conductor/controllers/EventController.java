@@ -28,7 +28,7 @@ public class EventController {
     }
 
     @GetMapping
-    public List<EventResponseDto> getAllMovies() {
+    public List<EventResponseDto> getAllEvents() {
         return eventService.getAll()
                 .stream()
                 .map(mapper::toDto)
@@ -36,7 +36,7 @@ public class EventController {
     }
 
     @PostMapping
-    public void createMovie(@RequestBody @Valid EventRequestDto eventRequestDto) {
+    public void createEvent(@RequestBody @Valid EventRequestDto eventRequestDto) {
         Event event = mapper.toEntity(eventRequestDto);
         eventService.add(event);
     }

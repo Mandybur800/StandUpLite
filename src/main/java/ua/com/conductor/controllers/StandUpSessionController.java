@@ -46,13 +46,13 @@ public class StandUpSessionController {
     }
 
     @PostMapping
-    public void createMovieSession(@RequestBody @Valid StandUpSessionRequestDto requestDto) {
+    public void createStandUpSession(@RequestBody @Valid StandUpSessionRequestDto requestDto) {
         StandUpSession standUpSession = mapper.toEntity(requestDto);
         standUpSessionService.add(standUpSession);
     }
 
     @PutMapping("/{id}")
-    public void updateMovieSession(@PathVariable Long id,
+    public void updateStandUpSession(@PathVariable Long id,
                                    @RequestBody @Valid StandUpSessionRequestDto dto) {
         StandUpSession standUpSession = mapper.toEntity(dto);
         standUpSession.setId(id);
@@ -60,7 +60,7 @@ public class StandUpSessionController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMovieSession(@PathVariable Long id) {
+    public void deleteStandUpSession(@PathVariable Long id) {
         standUpSessionService.delete(id);
     }
 }
