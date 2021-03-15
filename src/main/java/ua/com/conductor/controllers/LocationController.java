@@ -29,7 +29,7 @@ public class LocationController {
     }
 
     @GetMapping
-    public List<LocationResponseDto> getAllCinemaHalls() {
+    public List<LocationResponseDto> getAllLocations() {
         return locationService.getAll()
                 .stream()
                 .map(locationMapper::toDto)
@@ -37,7 +37,7 @@ public class LocationController {
     }
 
     @PostMapping
-    public void createCinemaHall(@RequestBody @Valid LocationRequestDto locationRequestDto) {
+    public void createLocation(@RequestBody @Valid LocationRequestDto locationRequestDto) {
         Location location = locationMapper.toEntity(locationRequestDto);
         locationService.add(location);
     }
